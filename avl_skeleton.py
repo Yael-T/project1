@@ -70,39 +70,41 @@ class AVLNode(object):
 	"""
 	def getHeight(self):
 		return self.height
-
-	"""sets left child
-
+	
+	"""sets right child
 	@type node: AVLNode
 	@param node: a node
 	"""
 	def setLeft(self, node):
-                self.left = node
+		if self.isRealNode():
+		    self.left = node
 
 	"""sets right child
-
 	@type node: AVLNode
 	@param node: a node
 	"""
+
 	def setRight(self, node):
-                self.right = node
+		if self.isRealNode():
+		    self.right = node
 
 	"""sets parent
-
 	@type node: AVLNode
 	@param node: a node
 	"""
 	def setParent(self, node):
-                self.parent = node
+		if self.isRealNode():
+			self.parent = node
 
 	"""sets value
-
 	@type value: str
 	@param value: data
 	"""
-	def setValue(self, value):
-                self.value = value
 
+    	def setValue(self, value):
+        	if self.isRealNode():
+            	self.value = value
+		
 	"""sets the balance factor of the node
 
 	@type h: int
@@ -626,3 +628,28 @@ class AVLTreeList(object):
                         node = node.getParent()
                 return rank
         ###########################################
+			
+	def __repr__(self):  # no need to understand the implementation of this one
+        	out = ""
+        	for row in printree(self.root):  # need printree.py file
+            		out = out + row + "\n"
+        	return out
+
+
+if __name__ == '__main__':
+    tree = AVLTreeList()
+    tree.insert(0, "8")
+    tree.insert(0, "7")
+    tree.insert(0, "6")
+    tree.insert(0, "5")
+    tree.insert(0, "4")
+    tree.insert(0, "3")
+    tree.insert(0, "2")
+    tree.insert(0, "1")
+    tree.insert(0, "0")
+    tree.insert(9, "9")
+    tree.insert(10, "10")
+    tree.insert(11, "11")
+    tree.insert(12, "12")
+
+    print(tree)
