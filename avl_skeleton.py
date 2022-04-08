@@ -28,7 +28,6 @@ class AVLNode(object):
             self.height = 0
             self.size = 1
         self.parent = None
-        self.balanceFactor = 0
 		
 
 	"""returns the left child
@@ -125,13 +124,13 @@ class AVLNode(object):
 	        """retrieves the node with the maximum rank in a subtree
 
         @type node: AVLnode
-        @pre: node != none
+        @pre: node not none
         @param node: the root of the subtree
         @rtype: AVLNode
         @returns: the node with the maximum rank in a subtree
         """
         def getMax(self):
-                if !self.getRight().isRealNode():
+                if not self.getRight().isRealNode():
                         return self
                 return self.getRight().getMax()
 
@@ -144,7 +143,7 @@ class AVLNode(object):
         @returns: the node with the minimum rank in a subtree
         """
         def getMin(self):
-                if !self.getLeft().isRealNode():
+                if not self.getLeft().isRealNode():
                         return self
                 return self.getLeft().getMin()
 	
@@ -200,13 +199,8 @@ class AVLNode(object):
         """
 
         def updateSize(self):
-        ]       self.size = self.getRight().getSize() + self.getLeft().getSize() + 1
+                self.size = self.getRight().getSize() + self.getLeft().getSize() + 1
 
-
-        """update balance factor
-        """
-        def updateBalanceFactor(self):
-                self.balanceFactor = self.getLeft().getHeight() - self.getRight().getHeight()
 
         """return balance factor
         @rtype: int
@@ -214,7 +208,7 @@ class AVLNode(object):
         """
 
         def getBalanceFactor(self):
-                return self.balanceFactor
+                return self.getLeft().getHeight() - self.getRight().getHeight()
 
         """update the height
         """
@@ -293,8 +287,8 @@ class AVLTreeList(object):
                     self.first = nodeToInsert
                     self.last = nodeToInsert
                     self.root = nodeToInsert
-
                     return 0
+                
                 if i == 0:
                     self.first = nodeToInsert
                 if i == self.length():
@@ -314,8 +308,8 @@ class AVLTreeList(object):
                 @rtype: None
                 """
 
-            def insertRec(self, i, root, nodeToInsert):
-                root.increaseSizeByOne()
+            def insertRec (self, i, root, nodeToInsert):
+                root.increaseSizeByOne() #????????
 
                 if i == 0 and not root.getLeft().isRealNode():
                     root.setLeft(nodeToInsert)
@@ -327,7 +321,7 @@ class AVLTreeList(object):
                     nodeToInsert.setParent(root)
                     return
 
-                leftTreeSize = root.getLeft().getSize()
+                leftTreeSFupize = root.getLeft().getSize()
 
                 if i <= leftTreeSize:
                     self.insertRec(i, root.getLeft(), nodeToInsert)
@@ -349,7 +343,6 @@ class AVLTreeList(object):
                 while node is not None and node.isRealNode():
                     parentLastHeight = node.getHeight()
                     node.updateHeight()
-                    node.updateBalanceFactor()
                     bf = node.getBalanceFactor()
                     if abs(bf) <= 1 and node.getHeight() == parentLastHeight:
                         return counter
@@ -424,8 +417,6 @@ class AVLTreeList(object):
                 B.setParent(A)
                 A.updateHeight()
                 B.updateHeight()
-                A.updateBalanceFactor()
-                B.updateBalanceFactor()
                 A.setSize(B.getSize())
                 B.setSize(B.getLeft().getSize() + B.getRight().getSize() + 1)
 
@@ -457,8 +448,6 @@ class AVLTreeList(object):
                 B.setParent(A)
                 A.updateHeight()
                 B.updateHeight()
-                A.updateBalanceFactor()
-                B.updateBalanceFactor()
                 A.setSize(B.getSize())
                 B.setSize(B.getLeft().getSize() + B.getRight().getSize() + 1)
 
@@ -482,7 +471,7 @@ class AVLTreeList(object):
 	@returns: the value of the first item, None if the list is empty
 	"""
 	def first(self):
-		return self.first.getValue() if !self.empty() else None
+		return self.first.getValue() if not self.empty() else None
 
 	"""returns the value of the last item in the list
 
@@ -490,7 +479,7 @@ class AVLTreeList(object):
 	@returns: the value of the last item, None if the list is empty
 	"""
 	def last(self):
-		return self.last.getValue() if !self.empty() else None
+		return self.last.getValue() if not self.empty() else None
 
 	"""returns an array representing list 
 
@@ -515,7 +504,7 @@ class AVLTreeList(object):
 	@returns: the size of the list
 	"""
 	def length(self):
-                return self.getRoot().getSize() if !self.empty() else 0 
+                return self.getRoot().getSize() if not self.empty() else 0 
                 
 
 	"""splits the list at the i'th index
